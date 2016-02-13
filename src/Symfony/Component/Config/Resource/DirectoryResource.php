@@ -83,7 +83,7 @@ class DirectoryResource implements SelfCheckingResourceInterface, \Serializable
 
             // always monitor directories for changes, except the .. entries
             // (otherwise deleted files wouldn't get detected)
-            if ($file->isDir() && '/..' === substr($file, -3)) {
+            if ($file->isDir() && '/..' === substr((string) $file, -3)) {
                 continue;
             }
 
