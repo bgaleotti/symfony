@@ -262,7 +262,7 @@ class PdoSessionHandlerTest extends \PHPUnit_Framework_TestCase
 
     public function testSessionGC()
     {
-        $previousLifeTime = ini_set('session.gc_maxlifetime', 1000);
+        $previousLifeTime = ini_set('session.gc_maxlifetime', '1000');
         $pdo = $this->getMemorySqlitePdo();
         $storage = new PdoSessionHandler($pdo);
 
@@ -273,7 +273,7 @@ class PdoSessionHandlerTest extends \PHPUnit_Framework_TestCase
 
         $storage->open('', 'sid');
         $storage->read('gc_id');
-        ini_set('session.gc_maxlifetime', -1); // test that you can set lifetime of a session after it has been read
+        ini_set('session.gc_maxlifetime', '-1'); // test that you can set lifetime of a session after it has been read
         $storage->write('gc_id', 'data');
         $storage->close();
         $this->assertEquals(2, $pdo->query('SELECT COUNT(*) FROM sessions')->fetchColumn(), 'No session pruned because gc not called');
